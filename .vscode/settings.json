@@ -1,0 +1,75 @@
+{
+    "latex-workshop.latex.tools": [
+        {
+            // 编译工具和命令
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+
+    // 配置编译链
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "xe->bib->xe->xe",
+            "tools": [
+                "xelatex",
+                "bibtex",
+                "xelatex",
+                "xelatex"
+            ]
+        }
+    ],
+
+    //viewer”设置阅读器为外置阅读器，“command”为SumatraPDF.exe的路径
+    "latex-workshop.view.pdf.viewer": "external",
+    "latex-workshop.view.pdf.external.command": {
+    "command": "C:/Program Files/SumatraPDF/SumatraPDF.exe",
+    "args": [
+        "%PDF%"
+    ]
+    },
+
+    //添加代码进入设置区以配置正向搜索
+    "latex-workshop.view.pdf.external.synctex": {
+        "command": "C:/Program Files/SumatraPDF/SumatraPDF.exe",
+        "args": [
+            "-forward-search",
+            "%TEX%",
+            "%LINE%",
+            "%PDF%"
+        ]
+    },
+
+    "latex-workshop.latex.autoClean.run":"never",
+    "latex-workshop.showContextMenu":true,
+}
