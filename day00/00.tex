@@ -1,7 +1,10 @@
-\documentclass{article}
+\documentclass[UTF8]{article}
 
+\usepackage{ctex}
 \usepackage{caption}
 \usepackage{graphicx, subfig}
+\usepackage{marginnote}
+\usepackage{verbatim}
 
 \title{\LaTeX \ Notes}
 \author{Xmp}
@@ -124,5 +127,50 @@ HEllo world HEllo world HEllo world  hello wrodl hello BASIC blar-blar-blar
 	\label{img} %此处的label相当于一个图片的专属标志，目的是方便上下文的引用
 \end{figure}
 
+%摘录三种摘录环境：quote, quotation, verse。quote 两端都缩
+%进，quotation 在 quote 的基础上增加了首行缩进，verse 比 quote 多了第
+%二行起的缩进
+
+\begin{quote}
+	引文两端\\都缩进
+\end{quote}
+\begin{quotation}
+	引文两端缩进，首行增加缩进。
+\end{quotation}
+\begin{verse}
+	引文两端缩进，第二行起增加缩进。
+\end{verse}
+
+%原文打印
+\verb command 行间命令
+\begin{verbatim}
+	printf("Hello World!");
+\end{verbatim}
+\begin{verbatim*}
+	printf("Hello World!");
+\end{verbatim*}
+
+%脚注
+正文\footnote{脚注}
+\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\Alph{footnote}}
+%\renewcommand{\thefootnote}{\Roman{footnote}}
+
+%边注，使用\marginnote宏包
+\marginnote{正常标注}
+\reversemarginpar
+\marginnote{反向边注}
+\normalmarginpar
+
+%注释，大段注释使用verbatim宏包的comment环境
+\begin{comment}
+\renewcommand{\thefootnote}{\roman{footnote}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\renewcommand{\thefootnote}{\alph{footnote}}
+\renewcommand{\thefootnote}{\Alph{footnote}}
+\renewcommand{\thefootnote}{\Roman{footnote}}
+\end{comment}
 
 \end{document}
