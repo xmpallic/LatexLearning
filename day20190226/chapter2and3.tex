@@ -1,0 +1,144 @@
+\documentclass[UTF8]{article}
+
+\usepackage{ctex}
+\usepackage{paralist}
+
+%\renewcommand{labelitemi}{-}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\begin{document}
+
+%基本列表：有序列表、无序列表、描述列表
+\begin{itemize}
+	\item C++
+	\item Java
+	\item HTML
+\end{itemize}
+
+\begin{enumerate}
+	\item C++
+	\item Java
+	\item HTML
+\end{enumerate}	
+	
+\begin{description}
+	\item[C++] 编程语言
+	\item[Java] 编程语言
+	\item[HTML] 标记语言
+\end{description}	
+
+%其它列表，使用paralist宏包,节省空间
+%压缩列表
+\begin{compactitem}
+	\item C++
+	\item Java
+	\item HTML
+\end{compactitem}
+
+\begin{compactenum}
+	\item C++
+	\item Java
+	\item HTML
+\end{compactenum}	
+
+\begin{compactdesc}
+	\item[C++] 编程语言
+	\item[Java] 编程语言
+	\item[HTML] 标记语言
+\end{compactdesc}	
+
+%行间列表
+\begin{inparaitem}
+	\item C++
+	\item Java
+	\item HTML
+\end{inparaitem}
+
+\begin{inparaenum}
+	\item C++
+	\item Java
+	\item HTML
+\end{inparaenum}
+
+\begin{inparadesc}
+	\item[C++] 编程语言
+	\item[Java] 编程语言
+	\item[HTML] 标记语言
+\end{inparadesc}
+
+%定制列表
+\renewcommand{\labelitemi}{-}
+\renewcommand{\theenumi}{\alph{enumi}}
+\begin{itemize}
+	\item C++
+	\item Java
+	\item HTML
+\end{itemize}
+
+\begin{enumerate}
+	\item C++
+	\item Java
+	\item HTML
+\end{enumerate}
+
+\subsection{盒子}
+\subsubsection{初级盒子}
+\mbox{010 6278 5001}%把一组对象组合起来
+\fbox{010 6278 5001}%在此基础上加个边框
+\subsubsection{中级盒子}
+%稍复杂的 \makebox 和 \framebox 命令提供了宽度和对齐方式控制的选项。其对齐方式有居中 (缺省) 、居左、居右和分散对齐，分别用 c, l, r, s 来表示。
+%语法：[宽度][对齐方式]{内容}
+\makebox[100pt][c]{仪仗队}
+\framebox[100pt][s]{仪仗队}
+
+\subsubsection{高级盒子}
+%大一些的对象比如整个段落可以用 \parbox 命令或 minipage 环境，两者语法类似，有宽度、高度、外部对齐、内部对齐等选项。这里的外部对齐是指该盒子与周围对象的纵向关系，有三种方式：居顶、居中和居底对齐，分别用 t, c, b 来表示。内部对齐是指该盒子内部内容的纵向排列方式，也是同样三种。
+%语法：[外部对齐][高度][内部对齐]{宽度}{内容}
+\fbox{%
+	\parbox[c][36pt][t]{170pt}{
+	锦瑟无端五十弦，一线一柱思华年。庄生晓梦迷蝴蝶，望帝春心托杜鹃。
+	}%
+}
+\hfill
+\fbox{%
+	\begin{minipage}[c][36pt][b]{170pt}
+	沧海月明珠有泪，蓝田玉暖玉生烟。此情可待成追忆，只是当时已惘然。	
+	\end{minipage}%
+}
+
+\subsection{交叉引用cross reference}
+需要编译两次，一般。
+%marker为标签名，它在全文中要保持唯一
+一个标签\label{marker}
+...
+第\pageref{marker}页\ref{marker}节
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+\end{document}

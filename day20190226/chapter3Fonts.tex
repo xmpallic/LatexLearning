@@ -1,0 +1,94 @@
+\documentclass[UTF8]{article}
+
+\usepackage{ctex}
+
+\title{Fonts}
+\author{Xmp}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\begin{abstract}
+英文中的 typeface 和 font 一般都被翻译为字体，传统印刷业通常使用typeface，电脑字体通常使用 font；当然也有很多人混用这两个词。电脑字体的诸多相关概念可以划分为三个层次：
+1. 编码层，字符 (包括字母、数字、符号、控制码等) 的索引和编码，也就是字符集 (character set) 和字符编码 (character encoding)。
+2. 格式层，字形 (glyph) 的定义描述方法，以及字体的文件存储格式。
+3. 显示层，字体的外在表现形式，比如字体的样式，或具体的字体。
+\end{abstract}
+
+\section{字符集和编码}	
+众所周知电脑内部采用二进制编码，因为它易于用电子电路实现。所有字符在电脑内部都是用二进制表示的，字符集的二进制编码被称为字符编码，有时人们也会混用这两个术语。	
+
+\section{字体格式}
+\subsection{点阵和矢量字体}
+电脑字体的数据格式可以分为三大类：点阵(bitmap)字体、轮廓(outline)字体和笔画 (stroke-based) 字体。
+
+点阵字体通过点阵来描述字形。早期的电脑受到容量和绘图速度的限
+制，多采用点阵字体。点阵字体后来渐渐被轮廓字体所取代，但是很多小字
+号字体仍然使用它，因为这种情况下轮廓字体缩放太多会导致笔画不清晰。
+轮廓字体又称作矢量字体，它通过一组直线段和曲线来描述字形。轮
+廓字体易于通过数学函数进行缩放等变换，形成平滑的轮廓。轮廓字体的
+主要缺陷在于它所采用的贝塞尔曲线 (Bézier curves) 在光栅设备 (比如显示器
+和打印机) 上不能精确渲染，因而需要额外的补偿处理比如字体微调 (font
+hinting) 。但是随着电脑硬件的发展，人们一般不在意它比点阵字体多出的
+处理时间。
+
+笔画字体其实也是轮廓字体，不过它描述的不是完整的字形，而是笔
+画。它多用于东亚文字。	
+
+\subsection{常见字体格式}
+当前常见的轮廓字体格式有：Type 1、TrueType、OpenType。	
+	
+\subsection{合纵连横}
+当年 Adobe推出 Type 1 和 Type 3 时，前者收费，后者是公开的自由规
+范。Type 1 专利许可费十分昂贵，穷人们只好用免费的 Type 3。为了打破这
+种垄断，Apple 开发了 TrueType。1991 年 TrueType 发布之后，Adobe 随即公
+开了 Type 1 的规范，它从贵族堕落为平民，因而流行开来。
+
+1980 年代中后期，Adobe 的大部分盈利来自于 PostScript 解释器的许可
+费。面对这种垄断局面，微软和 Apple 联合了起来。微软把买来的 PostScript
+解释器 TrueImage 授权给 Apple，Apple 则把 TrueType 授权给微软。
+
+微软得陇望蜀，又企图获得 AAT 的许可证，未遂。为了打破 Apple 的垄
+断，微软联合 Adobe 在 1996 年发布了 OpenType。Adobe 在 2002 年末将其字
+体库全面转向 OpenType。
+	
+\section{常见字体}
+\section{字体的应用}	
+\subsection{早期技术}
+\subsubsection{latex 和 DVI}
+\subsubsection{XeTex}
+
+\section{中文解决方案}
+没有解释的段落个人觉得对于目前的学习状态不需要记录。	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
