@@ -1,0 +1,165 @@
+\documentclass[UTF8]{article}
+
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+%\usepackage{caption}
+
+\title{数学部分}
+\author{Xmp}
+\date{\today}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{9}
+\tableofcontents
+
+\begin{abstract}
+	为了使用\AmS-\LaTeX 提供的数学功能，需要在文档的序言部分加载amsmath宏包。
+\end{abstract}
+
+\section{数学模式}
+行间模式和独立模式。
+
+行间模式：$F=mg$
+
+无编号独立公式：$$F=mg$$或者\begin{equation*}
+	F=mg
+\end{equation*}
+
+有编号独立公式：\begin{equation}
+	F=mg
+\end{equation}
+
+数学模式下也有加方框命令，例如：$E=mc^2$
+\[E=mc^2\]
+\[\boxed{E=mc^2}\]
+
+\emph{建议不使用\$\$ \dots \$\$，因为它和\AmS-\LaTeX 有冲突。}
+
+\section{基本元素}
+\subsection{希腊字母}
+比如：$\alpha \beta \gamma \tau \phi \chi$
+
+\subsection{上下标和根号}
+\[x_{ij}^2 \quad \sqrt{x} \quad \sqrt[3]{x} \]
+
+\subsection{分数}
+分数用\textbackslash frac命令表示，它会根据环境自动调整字号，比如在行间公式中小一点，在独立公式中则大一点。我们可以人工设置分数字号，比如\textbackslash dfrac命令把分数的字号设置为独立公式中的大小，而\textbackslash tfrac命令则把字号设为行间公式中的大小。
+例如：$\frac{1}{2} \quad \dfrac{1}{2}$
+\[\frac{1}{2} \tfrac{1}{2}\]
+
+\subsection{运算符}
+要用到时百度就好。
+\newcommand{\myd}{\;\mathrm{d}}
+\[\int x dx \quad \int x \myd x \]
+多重积分符号：\[\int \quad \iint \quad \iiint \quad \iiiint \quad \idotsint \]
+
+\subsection{箭头}
+\[\xleftarrow{x+y+z}\quad \xrightarrow[x<y]{a*b*c}\]
+
+\subsection{注音和音标}
+例如：$\bar{x} \quad \vec{x} \quad \mathring{x}$等等。
+
+\subsection{分隔符}
+例如：$\overline{xxx} \quad \overleftrightarrow{xxxx}\quad \underbrace{xxx}$等等。
+我们可以在上述分隔符前面加\textbackslash big \textbackslash Big \textbackslash bigg \textbackslash Bigg等命令来调整其大小。\LaTeX 原有的方法是在分隔符前面加\textbackslash left \textbackslash right来自动调整大小，但是效果不佳，所以amsmath不推荐用这种方法。
+\[ \Bigg(\bigg(\Big(\big((x)\big)\Big)\bigg)\Bigg)\quad\Bigg[\bigg[\Big[\big[[x]\big]\Big]\bigg]\Bigg]\quad\Bigg\{\bigg\{\Big\{\big\{\{x\}\big\}\Big\}\bigg\}\Bigg\}\]\[\Bigg\langle\bigg\langle\Big\langle\big\langle \rangle\big\rangle\Big\rangle\bigg\rangle\Bigg\rangle\quad\Bigg\lvert\bigg\lvert\Big\lvert\big\lvert\lvert x\rvert\big\rvert\Big\rvert\bigg\rvert\Bigg\rvert\quad\Bigg\lVert\bigg\lVert\Big\lVert\big\lVert\lVert x\rVert\big\rVert\Big\rVert\bigg\rVert\Bigg\rVert \]
+
+\subsection{省略号}
+\[x_1,x_2,\dots,x_n\quad 1,2,\cdots,n\quad \vdots\quad\ddots\]
+
+\subsection{空白间距}
+就\, 用\: 这\; 个\quad 来\qquad 测试\! 每个空白！
+
+\section{矩阵}
+数学模式下可以用array环境）来生成矩阵，它提供了外部对齐和列对齐的控制参数。外部对齐是指整个矩阵和周围对象的纵向关系，有三种方式：居顶、居中(缺省)、居底，分别用t,c,b来表示；列对齐也有三种方式：居左、居中、居右，分别用l,c,r表示。\textbackslash \textbackslash 和\&用来分隔行和列。其语法如下：
+%\begin{array}[外部对齐]{列对齐}
+%	行列内容
+%\end{array}
+\[
+\begin{array}{ccc}
+x_1 & x_2 & \dots \\
+x_3 & x_4 & \dots \\
+\vdots & \vdots & \ddots
+\end{array}
+\]
+amsmath的pmatrix,bmatrix,Bmatrix,vmatrix,Vmatrix等环境可以在矩阵两边加上各种分隔符，但是它们没有对齐方式参数。\textbackslash smallmatrix命令可以生成行间矩阵。
+\[
+\begin{pmatrix}a&b\\c&d \end{pmatrix} \quad
+\begin{bmatrix}a&b\\c&d \end{bmatrix} \quad
+\begin{Bmatrix}a&b\\c&d \end{Bmatrix} \quad
+\begin{vmatrix}a&b\\c&d \end{vmatrix} \quad
+\begin{Vmatrix}a&b\\c&d \end{Vmatrix} \quad
+\]
+
+Marry has a little matrix$(\begin{smallmatrix}a&b\\c&d\end{smallmatrix})$
+
+\section{多行公式}
+\subsection{长公式}
+无对齐长公式：\begin{multline}
+	x = a+b+c{}\\
+	d+e+f+f
+\end{multline}
+对齐长公式：\[\begin{split}
+	x={}&a+b+c+{}\\
+	&d+e+f+g
+\end{split}\]
+
+\subsection{公式组}
+无对齐公式组：\begin{gather}
+	a=b+c+d\\
+	x=y+z
+\end{gather}
+对齐公式组：
+\begin{align}
+	a &=b+c+d\\x &=y+2
+\end{align}
+
+\subsection{分支公式}
+\[
+y = \begin{cases}
+	-x,\quad x\leq 0\\x,\quad x >0
+\end{cases}
+\]
+
+\section{定理和证明}
+\textbackslash newtheorem命令可以用来定义定理之类的环境，其语法如下。
+
+语法：{环境名}[编号延续]{显示名}[编号层次]
+
+下面的代码定制了四个环境：定义、定理、引理和推论，它们都在一个section内统一编号，而引理和推论会延续定理的编号。定义环境后，再使用。
+\newtheorem{definition}{定义}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\begin{definition}
+	Java是一种跨平台的编程语言
+\end{definition}
+\begin{theorem}
+咖啡因可以刺激人的中枢神经
+\end{theorem}
+\begin{lemma}
+茶和咖啡都会使人的大脑兴奋。
+\end{lemma}
+\begin{corollary}
+	晚上喝咖啡可能会导致失眠
+\end{corollary}
+amsthm宏包提供proof环境，证明：
+\begin{proof}[命题物质无限可分的证明]一尺之棰，日取其半，万世不竭\end{proof}。
+
+\section{数学字体}
+和文本模式类似，我们在数学模式下也可以选用不同的字体样式)。\textbackslash mathbb和\textbackslash mathfrak需要amsfonts宏包，\textbackslash mathscr需要mathrsfs宏包。
+$$\mathrm{ABCXYZ}$$
+\[\mathsf{ABCXYZ}\]
+$$\mathtt{ABCXYZ}$$
+\[\mathcal{ABCXYZ}\]
+$$\mathbf{ABCXYZ}$$
+\[\mathit{ABCXYZ}\]
+\[\mathbb{ABCXYZ}\]
+$$\mathfrak{ABCXYZ}$$
+\[\mathscr{ABCXYZ}\]
+
+\end{document}
