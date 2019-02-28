@@ -1,0 +1,336 @@
+\documentclass[UTF8]{article}
+
+\usepackage{ctex}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{warpcol}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{colortbl}
+
+\title{表格}
+\author{Xmp}
+\date{\today}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{7}
+\tableofcontents
+
+\begin{abstract}
+	制作表格的简单步骤。
+\end{abstract}
+
+\section{简单表格}
+tabular环境提供了最简单的表格功能。它用 \textbackslash hline 命令表示横线，|表示竖线；用 \& 来分列，用 \textbackslash \textbackslash 来换行；每列可以采用居中、居左、居右等横向对齐方式，分别用 l、c、r 来表示。
+
+\begin{tabular}{|l |c|r|}
+	\hline
+	操作系统 & 发行版 & 编辑器 \\
+	\hline
+	Windows & MikTex & TexMakerX \\
+	\hline
+	Unix/Linux & teTex & Kile \\
+	\hline
+	Mac OS & MacTex & TexShop \\
+	\hline
+\end{tabular}
+
+表格简化为科技文献中常用的三线表。下面例子中的三条横线一样粗细，如果嫌它不够美观，可以使用booktabs宏包。三条横线就分别用\textbackslash toprule、\textbackslash midrule、\textbackslash bottomrule等命令表示。改进后的表格见下面。
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+	\toprule
+	操作系统 & 发行版 & 编辑器 \\	
+	\midrule
+	Windows & MikTex & TexMakerX \\
+	Unix/Linux & teTex & Kile \\
+	Mac OS & MacTex & TexShop \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+tabular 环境中的行可以采用居顶、居中、居底等纵向对齐方式，分别用 t、c、b 来表示，缺省的是居中对齐。列之间的分隔符也可以改用其他符号，比如用 || 来画双竖线。
+
+\lstset
+{
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+}
+\begin{lstlisting}
+语法：[纵向对齐]{横向对齐和分隔符}
+\end{lstlisting}
+
+
+\section{宽度控制}
+有时我们需要控制某列的宽度，可以将其对齐方式参数从 l、c、r 改为p{宽度}。这时纵向对齐方式是居顶，t、c、b 等参数失效。
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{80pt}p{80pt}p{80pt}}
+	\toprule
+	操作系统 & 发行版 & 编辑器 \\	
+	\midrule
+	Windows & MikTex & TexMakerX \\
+	Unix/Linux & teTex & Kile \\
+	Mac OS & MacTex & TexShop \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+使用宽度控制参数之后，表格内容缺省居左对齐。我们可以用列前置命令 >\{\} 配合 \textbackslash centering、\textbackslash raggedleft命令来把横向对齐方式改成居中或居右。列前置命令仅对紧邻其后的一列有效，其语法如下：
+\begin{lstlisting}
+	语法：>{命令}列参数
+\end{lstlisting}
+%\begin{table}[htbp]
+%	\centering
+%	\begin{tabular}{p{80pt}>{\centering}p{80pt}p{80pt}}
+%		\toprule
+%		操作系统 & 发行版 & 编辑器 \\	
+%		\midrule
+%		Windows & MikTex & TexMakerX \\
+%		Unix/Linux & teTex & Kile \\
+%		Mac OS & MacTex & TexShop \\
+%		\bottomrule
+%	\end{tabular}
+%\end{table}
+
+若要控制整个表格的宽度，可以使用 tabularx  的同名环境，其语法如下，其中X参数表示某列可以折行。
+\begin{lstlisting}
+语法：{表格宽度}{横向对齐、分隔符、折行}
+\end{lstlisting}
+\begin{table}[htbp]
+	\centering
+	\begin{tabularx}{350pt}{lXlX}
+	\toprule
+	李白 & 平林漠漠烟如织，寒山一带伤心碧。暝色入高楼，有人楼上愁。
+	玉阶空伫立，宿鸟归飞急。何处是归程，长亭更短亭。&
+	泰戈尔 & 夏天的飞鸟，飞到我的窗前唱歌，又飞去了。
+	秋天的黄叶，它们没有什么可唱，只叹息一声，飞落在那里。\\
+	\bottomrule
+	\end{tabularx}
+\end{table}
+
+如果想把纵向对齐方式改为居中和居底，可以使用array宏包，它提供了另两个对齐方式参数：m\{宽度\}、b\{宽度\}。
+
+\section{跨行跨列}
+有时表格某单元格需要横跨几列，我们可以使用\textbackslash multicolumn命令，同时使用booktabs宏包的\textbackslash cmidrule 命令来画横跨几列的横线。它们的语法如下：
+\begin{lstlisting}
+语法：\multicolumn{横跨列数}{对齐方式}{内容}
+语法：\cmidrule{起始列-结束列}
+\end{lstlisting}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+	\toprule
+	& \multicolumn{2}{c}{常用工具} \\
+	\cmidrule{2-3}
+	操作系统 & 发行版 & 编辑器 \\	
+	\midrule
+	Windows & MikTex & TexMakerX \\
+	Unix/Linux & teTex & Kile \\
+	Mac OS & MacTex & TexShop \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+跨行表格可以使用 multirow 宏包的\textbackslash multirow 命令，其语法如下，
+\begin{lstlisting}
+语法：\multirow{竖跨行数}{宽度}{内容}
+\end{lstlisting}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lllc}
+	\toprule
+	操作系统 & 发行版 & 编辑器 &用户体验\\	
+	\midrule
+	Windows & MikTex & TexMakerX &
+	\multirow{3}{*}{\centering text}\\
+	Unix/Linux & teTex & Kile \\
+	Mac OS & MacTex & TexShop \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{数字表格}
+当表格中包含大量数字时，手工调整小数点和数位的对齐很麻烦，这时可以使用warpcol宏包。它为 tabular 环境提供了一个列对齐参数 P，其语法如下，其 m和 n 分别是小数点前后的位数，数字前的负号可选。
+\begin{lstlisting}
+语法：P{-m.n}
+\end{lstlisting}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{P{2.5}P{-2.5}}
+	\toprule
+	\multicolumn{1}{c}{数学常数} &
+	multicolumn{1}{c}{物理常数} \\
+	\midrule
+	3.14159 & 2.99792 \\
+	27.18281 & -17.58819 \\
+	\bottomrule
+\end{tabular}
+\end{table}
+使用 multicolumn 命令是为了保护表头，防止它们被 P 参数误伤。把跨列命令的列数设为1是设置单元格格式的一种常用方法。
+
+
+\section{长表格}
+使用longtable宏包。步骤如下：\\
+1. 首先用 longtable 环境取代 tabular 环境；\\
+2. 然后在表格开始部分定义每页页首出现的通用表头，表头最后一行末
+尾不用 \textbackslash \textbackslash 换行，而是加一个 \textbackslash endhead 命令；\\
+3. 接着定义首页表头 (如果它和通用表头不同的话) ，同样地最后一行用\textbackslash endfirsthead 命令结尾；\\
+4. 然后是以 \textbackslash endfoot 命令结尾的通用表尾；\\
+5. 然后是以 \textbackslash endlastfoot 命令结尾的末页表尾 (如果它和通用表尾不同的话) ；\\
+6. 最后是表格的具体内容。\\
+这\\里\\加\\些\\东西，以便跨页。
+
+\begin{longtable}{ll}
+	\multicolumn{2}{r}{接上页} \\
+	\toprule
+	作者 & 作品 \\
+	\midrule
+	\endhead
+\caption{长表格}\\
+	\toprule
+	作者 & 作品 \\
+	\midrule
+	\endfirsthead
+	\bottomrule
+	\multicolumn{2}{r}{接下页\dots}\\
+	\endfoot
+	\bottomrule
+	\endlastfoot
+	白居易 & 汉皇重色思倾国，御宇多年求不得。\\
+	 & 杨家有女初长成，养在深闺人未识。\\
+	& 天生丽质难自弃，一朝选在君王侧。\\
+	 & 回眸一笑百媚生，六宫粉黛无颜色。\\
+	& 春寒赐浴华清池，温泉水滑洗凝脂。\\
+	 & 侍儿扶起娇无力，始是新承恩泽时。\\
+	& 云鬓花颜金步摇，芙蓉帐暖度春宵。\\
+	 & 春宵苦短日高起，从此君王不早朝。\\
+	& 承欢侍宴无闲暇，春从春游夜专夜。\\
+	 & 后宫佳丽三千人，三千宠爱在一身。\\
+	& 金屋妆成娇侍夜，玉楼宴罢醉和春。\\
+	 & 姊妹弟兄皆列土，可怜光彩生门户。\\
+	& 遂令天下父母心，不重生男重生女。\\
+	 & 骊宫高处入青云，仙乐风飘处处闻。\\
+	& 缓歌慢舞凝丝竹，尽日君王看不足。\\
+	 & 渔阳鼙鼓动地来，惊破霓裳羽衣曲。\\
+	& 九重城阙烟尘生，千乘万骑西南行。\\
+	 & 翠华摇摇行复止，西出都门百余里。\\
+	& 六军不发无奈何，宛转蛾眉马前死。\\
+	 & 花钿委地无人收，翠翅金雀玉搔头。\\
+	& 君王掩面救不得，回看血泪相和流。\\
+	 & 黄埃散漫风萧索，云栈萦纡登剑阁。\\
+	& 峨嵋山下少人行，旌旗无光日色薄。\\
+	 & 蜀江水碧蜀山青，圣主朝朝暮暮情。\\
+	& 行宫见月伤心色，夜雨闻铃断肠声。\\
+\end{longtable}
+
+
+\section{宽表格}
+使用rotating宏包，用sidewaystable环境代替table环境即可。
+\begin{sidewaystable}
+	\caption{主流英文词典}
+	\label{tab:dict}
+	\centering
+	\begin{tabularx}{550pt}{Xllcrrr}
+		 \toprule
+		Title & Abbr & Publisher & Year & Pages & Entries &
+		Price \\
+		 \midrule
+		Oxford English Dict, 2nd Ed & OED & Oxford Univ
+	& 1989 & 21,728 & 616,500 & 995 \\
+		\midrule
+		 Shorter Oxford English Dict, 7th Ed & SOED & Oxford
+		Univ
+		& 2007 & 3,888 & 600,000 & 175 \\
+		 New Oxford Dict of English, 2nd & NODE & Oxford Univ
+		& 2005 & 2,112 & 355,000 & 68 \\
+		 Webster's Third New International Dict & W3 & Merriam-
+		Webster
+		& 1961 & 2,816 & 476,000 & 129 \\
+		 American Heritage Dict, 4th Ed & AHD & Houghton
+		Mifflin
+		& 2000 & 2,112 & 90,000 & 60 \\
+		 Random House Webster's Unabridged Dict, 2nd Ed &
+		Random & Random House
+		& 2005 & 2,256 & 315,000 & 69 \\
+		 \midrule
+		Concise Oxford Dict, 11th Ed & COD & Oxford Univ
+		 & 2006 & 1,728 & 240,000 & \\
+		Chambers Dict, 10th Ed & Chambers & Chambers Harrap
+		 & 2006 & 1,872 & & 50 \\
+		Collins English Dict, 9th Ed & Collins & HarperCollins
+		 & 2007 & 1,888 & & 67 \\
+		Longman Dict of Contemporary English, 4th Ed & Longman
+		& Longman
+		 & 2005 & & 207,000 & 71 \\
+		Merriam-Webster's Collegiate Dict, 11th Ed & & Merriam
+		-Webster
+		 & 2003 & 1,664 & 225,000 & 26 \\
+		American Heritage College Dict, 4th Ed & & Houghton
+		Mifflin
+		 & 2007 & 1,664 & & 26 \\
+		Random House Webster's College Dict & & Random House
+		 & 2005 & 1,632 & & 26 \\
+		Webster's New World College Dict, 4th Ed & & John
+		Wiley \& Sons
+		& 2004 & 1,744 & 160,000 & 26 \\
+		\bottomrule
+		\end{tabularx}
+\end{sidewaystable}
+
+\section{彩色表格}
+使用colortbl宏包，它提供
+的 \textbackslash columncolor、\textbackslash rowcolor、\textbackslash cellcolor 命令可以分别设置列、行、单元格的颜色。这三个命令的基本语法相似：
+\begin{lstlisting}
+语法：{颜色}
+\end{lstlisting}
+\textbackslash columncolor需要放到列前置命令里，rowcolor、\textbackslash cellcolor 分别放到行、单元格之前。colortbl 宏包可以使用 xcolor 宏包的色彩模型；两者同时，前者不能直接加载，需要通过后者的选项 table 来加载。三个命令同时使用时，它们的优先顺序为：单元格、行、列。	
+\begin{table}[htbp]
+	\centering
+	\caption{colortable}
+	\begin{tabular}{l>{\columncolor{yellow}}ll}
+		\rowcolor{red}操作系统 & 发行版 & 编辑器 \\
+		Windows & MikTeX & TexMakerX \\
+		\rowcolor{green}Unix/Linux & \cellcolor{red}teTeX
+			& Kile \\
+		Mac OS & MacTeX & TeXShop \\
+		\rowcolor{blue}通用 & TeX Live & TeXworks \\
+	\end{tabular}
+\end{table}
+
+xcolor宏包的rowcolors 命令 (需要 colortbl 宏包的支持) 可以分别设置奇偶行的颜色。该命令语法如下：
+\begin{lstlisting}
+	语法：{起始行}{奇数行颜色}{偶数行颜色}
+\end{lstlisting}
+下面代码第 14 行的 \textbackslash hiderowcolors 命令是用来暂停显示前面设置的奇偶行颜色，否则后面的其他表格会继续显示颜色。另一个命令\textbackslash showrowcolors 可以用来重新激活奇偶行颜色设置。
+\begin{table}[htbp]
+\centering
+\caption{colorless}
+	\rowcolors{1}{white}{red}
+	\begin{tabular}{lll}
+		\hline
+		操作系统 & 发行版 & 编辑器 \\
+		Windows & MikTeX & TexMakerX \\
+		Unix/Linux & teTeX & Kile \\
+		Mac OS & MacTeX & TeXShop \\
+		 通用 & TeX Live & TeXworks \\
+		\hline
+		\hiderowcolors
+	\end{tabular}
+\end{table}
+	
+\end{document}
