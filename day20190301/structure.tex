@@ -1,0 +1,153 @@
+\documentclass[UTF8]{article}
+
+\usepackage{ctex}
+\usepackage{marginnote}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+%\usepackage{natbib}
+
+\title{结构}
+\author{Xmp}
+\date{\today}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{7}
+\tableofcontents
+\begin{abstract}
+	\begin{quote}
+		善张网者引其纲，不一一摄万目而后得。
+		
+		\marginnote{---《韩非子·外储说右》}
+	\end{quote}	
+\end{abstract}
+
+\lstset
+{
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+}
+
+\section{长文档}
+在主控文档中引用子文档。使用\textbackslash include命令会新起一页，如果不想要新页可以改用\textbackslash input命令。
+
+\begin{lstlisting}
+\begin{document}
+\include{chapter1.tex}
+\include{chapter2.tex}
+...
+\end{document}
+\end{lstlisting}
+
+当文档很长时，可以使用syntonly宏包，这样编译时就只检查语法，而不生成结果文件。
+
+\begin{lstlisting}
+\usepackage{syntonly}
+...
+\syntaxonly
+\end{lstlisting}
+
+\section{标题}
+我们用\textbackslash title,\textbackslash author,\textbackslash date等命令分别设置标题、作者、日期。标准文档类没有为作者所属单位定义专门的命令，我们可以把单位直接写在作者下面，作者和单位之间的联系通常用一些特殊符号来标注。设置上述内容之后，我们用 \maketitle 命令来输出它们。
+
+文档类选项notitlepage和titlepage可以用来控制标题是否单独占一页。report和book文档类中的标题缺省独占一页，article文档类中的标题缺省和正文等混居一页。
+
+\section{目录}
+\textbackslash tableofcontents命令可以生成整个文档的章节目录。\textbackslash setcounter命令指定目录的层次深度。如果不想让某个章节标题出现在目录里，则可以使用带$*$的命令来声明章节。
+
+\begin{lstlisting}
+\chapter*{...}
+\section*{...}
+...
+\end{lstlisting}
+
+\textbackslash listoffigures和\textbackslash listoftables命令来生成图目录和表目录。
+
+当章节或图表等结构发生变化时，我们需要执行两次编译命令以获得正确的目录。
+
+另外我们也可以利用caption 宏包来自定义类似于插图和表格的浮动环境。本文中的例子浮动环境第二行代码指定loe为例目录中间文件后缀，example为环境名，例为浮动环境标题前缀，例目录是目录的标题。定义该环境后，其使用方法与插图、表格浮动环境一样。
+
+\begin{lstlisting}
+语法：\DeclareCaptionType[选项]{环境}[名称][目录名]
+
+\DeclareCaptionType[fileext=loe]{example}
+		[例][例目录]
+\begin{example}[h]
+...
+\end{example}
+\end{lstlisting}
+
+\section{参考文献}
+\subsection{thebibliography}
+\LaTeX 中最原始的方法是用thebibliography 环境和\textbackslash bibtem命令来定义参考文献条目。第一行的参数9是参考文献条目编号的宽度；如果有几十个条目，可以把该参数改为99。
+\begin{thebibliography}{9}
+\bibitem{Rowling_1997}
+	Joanne K. Rowling,
+	\emph{Harry Potter and the Philosopher's Stone}.
+	Bloomsbury, London,
+	1997.
+\end{thebibliography}
+thebibliography环境一般放在文档末尾。定义了参考文献之后，可以用\textbackslash cite命令在正文中\cite{Rowling_1997}引用条目。
+
+\subsection{BibTex}
+用数据
+库文件.bib 记录参考文献条目，用样式文件.bst 设置显示格式。普通用户一般不需要改动样式文件，只须维护数据库。
+
+使用专门的文献管理软件提高效率，如JabRef。含有参考文献的文档更麻烦，它需要依次执行四次编译操作。建议用统一的样式。编译时用 xelatex 编译主控文档，而用 bibtex 编译各个子文档。
+
+\begin{lstlisting}
+xelatex master(.tex)
+bibtex chapter1(.tex)
+bibtex chapter2(.tex)
+...
+xelatex master(.tex)
+xelatex master(.tex)
+\end{lstlisting}
+
+\subsection{Natbib}
+natbib宏包支持两种模式：作者-年份和数字。提供三种列表样式：plainnat,abbrvnat,unsrtnat.
+
+\section{索引}
+makeidx宏包提供了索引功能。应用它时，我们首先要在文档序言部分引用宏包，并使用\textbackslash makeindex 命令；其次在正文中需要索引的地方定义索引，注意索引关键字在全文中须保持唯一；最后在合适的地方 (一般是文档末尾) 打印索引。
+
+\begin{lstlisting}
+\usepackage{makeidx}
+\makeindex
+...
+\begin{document}
+\index{索引关键字}
+...
+\printindex
+\end{document}	
+\end{lstlisting}
+
+当编译含索引的文档时，用户需要执行三次编译操作。
+
+\section{超链接}
+hyperref宏包。
+
+\label{sec:hyperlink}
+编号形式：\ref{sec:hyperlink}
+文字形式：\hyperref[sec:hyperlink]{链接}
+\url{www.baidu.com}
+\href{www.baidu.com}{百度}
+
+\section{结构名}
+
+
+
+
+
+
+
+
+
+\end{document}
