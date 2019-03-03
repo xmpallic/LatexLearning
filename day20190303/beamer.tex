@@ -1,0 +1,53 @@
+\documentclass[UTF8]{beamer}
+
+\usepackage{ctex}
+
+\begin{document}
+	
+\begin{frame}
+	\title{Beamer使用}
+	\author{Xmp}
+	\date{\today}
+	\maketitle
+\end{frame}
+	
+\begin{frame}{这里是标题。}
+	这里是正文。
+\end{frame}
+
+%\frame{\tableofcontents}%列目录之前需要设置节和小节。
+%\frame{\tableofcontents[currentsection]}%显示当前的进程。
+
+\begin{frame}{部分说明}
+	普通文档中的很多内容也都可以用于幻灯页，比如第二章里的列表和盒子，第五至八章里的各种插图，第九章里的表格。有时为了平衡页内空白，也可以使用第十章里的双栏。这些内容在幻灯和普通文档中的使用方法相似，此处不赘述。\\
+	
+	Beamer自己也提供了一些比较适用于幻灯的环境，比如下面示范的几个矩形块环境。它们都是在一个矩形块内输出一段文字，那个参数就是一个标题，它们的差别只是标题的颜色。
+\end{frame}
+
+\begin{frame}{测试2}
+	\begin{block}{第一个盒子}
+		第一个盒子中的内容。
+	\end{block}
+
+	\begin{alertblock}{不同的盒子}
+		不同盒子的内容。
+	\end{alertblock}
+
+	\begin{exampleblock}{第二个不同的盒子}
+		第二个不同盒子的内容。
+	\end{exampleblock}
+\end{frame}
+
+%分步展现，使用\pause命令，下面的代码实际上生成了四页PDF，依次重叠。
+\begin{frame}{使用特效，分步展现}
+	\begin{itemize}
+		\item 第一页
+		\pause
+		\item 第二页
+		\pause
+		\item 第三页
+		\pause
+		\item 第四页
+	\end{itemize}
+\end{frame}
+\end{document}
